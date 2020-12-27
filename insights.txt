@@ -1,0 +1,36 @@
+data has all letters, except captial Z, Q and V.
+other characters are space, newline, colon, exclamation point, hyphen, period, forward slash, comma
+single and double quotes, all digits except 9
+
+delta bar IC is best at 13, multiples of three are also higher
+actually, 39 is probably the best delta bar IC, at 1.685
+kasiski also gives 39 as the most likely key length
+
+looking at frequencies of each letter in a period of 39, it appears as if all spaces are the most frequent character in the text, but it is not a simple viginere or autokey cipher (with an extended charset)    
+setting the most frequent letter to space and all others to a placeholder ('=') reveals the approximate structure of the plaintext. Of course words seperated only by a newline will merge together
+
+first tried mapping the whole charset to each column ordered by frequency as a key, but this produces innacurate results, so tried with the first few characters (' ', e, t)
+
+identify some places in the plaintext where simple frequent words in text are, and once a sufficient amount of words are identified, can remove some of the guesses
+
+made two little functions to look for words in the decoded plaintext and ciphertext, one looks for close matches to a string in the plaintext, and another sums the absolute difference between the occurrence probability of each letter with the expected value from the project gutenberg text analysis,
+they both worked well once the topic of the plaintext was known, making it quick to crack multiple occurences of common words and names
+
+* Used a text from project gutenberg as an example to determine frequencies of single letters
+* Used the most frequent bigrams and individual letter counts to determine
+
+once text is searchable from putting a fragment into google, then can enter in the original text after replacing the unicode ellipsis with three dots. At the end of the plaintext is the following message:
+
+If you have solved this puz=le then message me with "Yoshi is a horse because horses lay eggs". Thanks for solving =ariad's ==== Crypto Puz=le!
+
+= haven't done one of these in a few years namely due to medical issues and =ust overall needing to take a step back from things. =owever, I am super happy to see someone has solved this and I plan to make one again ne=t year. I hope you are well and please do let me know if you have solved it!
+=
+
+which is, after replacing missing key characters:
+If you have solved this puzzle then message me with "Yoshi is a horse because horses lay eggs". Thanks for solving Cariad's 2020 Crypto Puzzle!
+
+I haven't done one of these in a few years namely due to medical issues and just overall needing to take a step back from things. However, I am super happy to see someone has solved this and I plan to make one again next year. I hope you are well and please do let me know if you have solved it!
+
+after some post analysis, it seems that the key is not just a random key, the 14'th key is idempotent, and many others are equivalent to other parts of the key
+
+
